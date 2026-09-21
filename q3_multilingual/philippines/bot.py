@@ -65,8 +65,8 @@ class PhilippinesVoiceBot:
             state.add_turn("agent", resp)
             return {"response": resp, "state": state.current_state, "is_grounded": True, "language": "taglish"}
 
-        # 4. Objection: Rate too high
-        if any(w in user_clean for w in ["mataas", "mahal", "high rate", "interest", "bigat"]):
+        # 4. Objection: Rate too high or general rate/prepayment inquiry
+        if any(w in user_clean for w in ["mataas", "mahal", "high rate", "interest", "bigat", "fixed apr", "prepayment", "apr rate"]):
             resp = PH_PROMPTS["objection_rate_high"]
             state.add_turn("agent", resp)
             return {"response": resp, "state": state.current_state, "is_objection": True, "language": "taglish"}
