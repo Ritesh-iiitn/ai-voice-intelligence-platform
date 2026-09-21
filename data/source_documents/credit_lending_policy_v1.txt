@@ -1,0 +1,36 @@
+================================================================================
+CONSUMER CREDIT LENDING POLICY (SUPERSEDED)
+Document ID: DOC-POL-LEND-2024-V1
+Version: 1.0
+Status: SUPERSEDED
+Effective Date: 2024-01-01
+Expiry Date: 2025-12-31
+Classification: Historical Underwriting Guidelines
+================================================================================
+
+1. PRODUCT OVERVIEW & ELIGIBILITY CRITERIA
+------------------------------------------
+The Consumer Credit facility provides standard personal credit to retail borrowers.
+
+1.1 General Eligibility Requirements:
+- Age: Applicant must be between 23 and 60 years old at maturity.
+- Citizenship / Residency: Permanent residents or legal citizens.
+- Minimum Monthly Net Income: $3,000 per month.
+- Minimum Credit Score: 680.
+
+1.2 Credit Score Tiers & APR Schedules:
+- Tier 1 (Score 750+): Fixed APR of 7.99% p.a.
+- Tier 2 (Score 680 - 749): Fixed APR of 10.50% p.a.
+
+2. LOAN TERMS AND FEES
+----------------------
+2.1 Loan Amounts:
+- Minimum Facility Size: $5,000.
+- Maximum Facility Size: $30,000.
+
+2.2 Repayment Tenors:
+- Available terms: 12, 24, 36, and 48 months.
+
+2.3 Fees and Penalties:
+- One-Time Processing Fee: 2.0% of approved principal.
+- Prepayment Fee: 1.0% penalty charged if loan is settled within the first 12 months.

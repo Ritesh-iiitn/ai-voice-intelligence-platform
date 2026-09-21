@@ -1,0 +1,6 @@
+application_id,customer_name,phone_number,email_address,national_id,bank_account_number,requested_amount,monthly_income,status
+APP-101,Johnathan Doe,+1-555-234-5678,john.doe@example.com,SSN: ***-**-6789,ACCT-9876543210,$25000,$4200,approved
+APP-102,Maria Elena Santos,+63-917-555-8899,maria.santos@finmail.ph,TIN: 123-456-789-000,BDO-1122334455,$18000,$3100,pre_qualified
+APP-103,Budi Santoso,+62-812-3456-7890,budi.santoso@jakarta.id,NIK: 3171012345670001,BCA-8899001122,$15000,$2800,under_review
+APP-104,Alice Katherine Smith,+1-415-555-0199,alice.smith@samplecorp.org,PAN: ABCDE1234F,HDFC-50100223344,$45000,$7500,approved
+APP-105,Carlos De La Cruz,+63-920-555-4321,carlos.cruz@bayantelecom.ph,SSS: 03-1234567-8,BPI-9988776655,$32000,$5000,approved

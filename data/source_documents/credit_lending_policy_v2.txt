@@ -1,0 +1,64 @@
+================================================================================
+CONSUMER & VEHICLE CREDIT LENDING UNDERWRITING POLICY
+Document ID: DOC-POL-LEND-2026-V2
+Version: 2.1
+Status: ACTIVE
+Effective Date: 2026-01-01
+Classification: Confidential - Internal Lending Guidelines
+================================================================================
+
+1. PRODUCT OVERVIEW & ELIGIBILITY CRITERIA
+------------------------------------------
+The Consumer & Vehicle Flexi-Credit facility provides secured auto loans and unsecured personal credit to eligible retail borrowers.
+
+1.1 General Eligibility Requirements:
+- Age: Applicant must be between 21 and 65 years old at the time of maturity.
+- Citizenship / Residency: Permanent residents or legal citizens with valid government-issued photo identification.
+- Minimum Monthly Net Income: $2,500 per month (or equivalent in local currency).
+- Employment: Minimum 6 months continuous employment at current employer, or 2 years verifiable self-employment income.
+- Minimum Credit Score: 650 (Standard Underwriting Score).
+
+1.2 Credit Score Tiers & APR Schedules:
+- Tier 1 (Excellent, Score 750+): Fixed APR of 6.49% p.a.
+- Tier 2 (Good, Score 700 - 749): Fixed APR of 8.99% p.a.
+- Tier 3 (Standard, Score 650 - 699): Fixed APR of 11.75% p.a.
+- Sub-650 Underwriting: Strictly subject to Exception Committee approval (Section 4).
+
+2. LOAN TERMS, AMOUNTS, AND DISBURSEMENT
+----------------------------------------
+2.1 Loan Amounts:
+- Minimum Facility Size: $5,000.
+- Maximum Facility Size: $75,000 for vehicle loans; $35,000 for unsecured personal loans.
+
+2.2 Repayment Tenors:
+- Available terms: 12, 24, 36, 48, 60, and 72 months.
+
+2.3 Debt-to-Income (DTI) Limits:
+- Standard maximum DTI ratio is 45% (inclusive of all revolving credit, mortgage, and proposed loan installment).
+- If DTI exceeds 45%, the application must be declined or loan amount reduced.
+
+2.4 Fees and Penalties:
+- One-Time Processing Fee: 1.5% of the approved loan principal, deducted automatically from the net disbursement amount.
+- Prepayment / Early Settlement Penalty: $0. Borrowers may settle the loan in full or make partial principal curtailments at any time without fee or penalty.
+- Late Payment Charge: $25 or 5% of the overdue installment (whichever is lower), assessed after a 7-day grace period.
+
+3. REQUIRED VERIFICATION DOCUMENTS
+----------------------------------
+Applicants must supply:
+1. Valid government photo identification (Passport, National ID card, Driver's License).
+2. Proof of income: Most recent 2 months of computerized pay slips or consecutive 3 months of bank statements showing regular salary deposits.
+3. Proof of residential address: Utility bill or bank statement dated within the last 90 days.
+
+4. EXCEPTION POLICIES & SPECIAL APPROVALS
+----------------------------------------
+- Near-Prime Exception: Applicants with credit scores between 620 and 649 may qualify if:
+  a) The calculated DTI is strictly below 35%; AND
+  b) For vehicle loans, a minimum Down Payment (DP) of 20% is provided; AND
+  c) Risk surcharge of 2.0% is added to the applicable base APR.
+
+5. MANDATORY COMPLIANCE DISCLOSURE
+----------------------------------
+Under Federal and Regional Truth in Lending Regulations, every customer must be informed of:
+1. Call recording consent at the commencement of the conversation.
+2. The specific Annual Percentage Rate (APR) before verbal or digital agreement.
+3. Total finance charges and monthly installment schedule.
