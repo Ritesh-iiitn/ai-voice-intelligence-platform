@@ -1,0 +1,98 @@
+{
+  "scenario_id": "SCENARIO-02",
+  "scenario_name": "Customer Objection (Rate too high)",
+  "customer_name": "Dwight Schrute",
+  "phone": "+1-555-014-9922",
+  "final_state": "RESULT",
+  "qualification_status": "qualified",
+  "conflicts_detected": [],
+  "escalation_requested": false,
+  "lead": {
+    "lead_id": "LEAD-5E621E08",
+    "name": "Dwight Schrute",
+    "phone": "+1-555-014-9922",
+    "email": null,
+    "requested_amount": 40000.0,
+    "monthly_income": 5500.0,
+    "credit_score": 725,
+    "qualification": "qualified",
+    "reason": "Eligible for Tier 2 (Good) with fixed APR of 8.99% and $0 prepayment penalty.",
+    "next_action": "advisor_callback",
+    "created_at": "2026-09-21T19:11:25.155279",
+    "metadata": {
+      "tier": "Tier 2 (Good)",
+      "apr": "8.99%",
+      "prepayment_fee": "$0"
+    }
+  },
+  "citations_used": [
+    "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+  ],
+  "recording_file": "recordings/scenario-02.wav",
+  "dialogue_history": [
+    {
+      "speaker": "Agent",
+      "utterance": "Hello! This is Alex calling from Apex Credit & Vehicle Lending. I'm following up on your inquiry regarding our pre-approved auto and flexi-credit options. Am I speaking with Dwight Schrute?"
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, Dwight Schrute here."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Great! Before we proceed to review your financing options, I want to inform you that this call is recorded for quality, compliance, and training purposes. Is it okay to continue?",
+      "state": "CONSENT",
+      "citations": [
+        "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, you have consent."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Understood. Approximately how much funding or borrowing amount are you looking to finance?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "I need a $40,000 vehicle loan, but the interest rate feels a bit too high for me."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "I completely understand. Because our rates are fixed as low as 6.49% with zero prepayment penalties, you can pay down principal early to minimize interest, and there are no surprise balloon payments. Would you like to check your rate tier with a preliminary soft quote that won't impact your credit score? [Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0] Got it. And to check your debt-to-income eligibility, what is your approximate monthly net take-home income?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My monthly income is $5,500."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Thank you. Lastly, what is your approximate credit score or credit rating range?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My credit score is 725."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Fantastic news! Based on our underwriting guidelines, you are preliminarily qualified for Tier 2 (Good) with a fixed APR of 8.99% with a $0 prepayment penalty. I have generated your pre-approval reference LEAD-5E621E08.",
+      "state": "RESULT",
+      "citations": [
+        "[Source: faq_and_objections.csv | Section: [Record 8] | Version: 1.0]"
+      ]
+    }
+  ]
+}

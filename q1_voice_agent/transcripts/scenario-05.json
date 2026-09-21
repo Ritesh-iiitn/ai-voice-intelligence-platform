@@ -1,0 +1,52 @@
+{
+  "scenario_id": "SCENARIO-05",
+  "scenario_name": "Explicit Human Escalation",
+  "customer_name": "Kelly Kapoor",
+  "phone": "+1-555-012-4455",
+  "final_state": "ESCALATION",
+  "qualification_status": null,
+  "conflicts_detected": [],
+  "escalation_requested": true,
+  "lead": {
+    "lead_id": "LEAD-93F847C6",
+    "name": "Kelly Kapoor",
+    "phone": "+1-555-012-4455",
+    "email": null,
+    "requested_amount": null,
+    "monthly_income": null,
+    "credit_score": null,
+    "qualification": "escalated",
+    "reason": "Explicit customer request: 'speak to a human'",
+    "next_action": "immediate_human_transfer",
+    "created_at": "2026-09-21T19:11:25.156693",
+    "metadata": {}
+  },
+  "citations_used": [],
+  "recording_file": "recordings/scenario-05.wav",
+  "dialogue_history": [
+    {
+      "speaker": "Agent",
+      "utterance": "Hello! This is Alex calling from Apex Credit & Vehicle Lending. I'm following up on your inquiry regarding our pre-approved auto and flexi-credit options. Am I speaking with Kelly Kapoor?"
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, Kelly here!"
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Great! Before we proceed to review your financing options, I want to inform you that this call is recorded for quality, compliance, and training purposes. Is it okay to continue?",
+      "state": "CONSENT",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Can I speak to a human representative right now please? I don't want to talk to an automated system."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Certainly. I am stopping the automated assessment and transferring you directly to a licensed human specialist. Please stay on the line while I connect you.",
+      "state": "ESCALATION",
+      "citations": []
+    }
+  ]
+}

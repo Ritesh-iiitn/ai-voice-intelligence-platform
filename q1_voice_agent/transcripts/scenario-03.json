@@ -1,0 +1,98 @@
+{
+  "scenario_id": "SCENARIO-03",
+  "scenario_name": "Incomplete & Conflicting Financial Details",
+  "customer_name": "Andy Bernard",
+  "phone": "+1-555-018-3341",
+  "final_state": "RESULT",
+  "qualification_status": "qualified",
+  "conflicts_detected": [
+    "income ($20,000 vs $1,800)"
+  ],
+  "escalation_requested": false,
+  "lead": {
+    "lead_id": "LEAD-A2D9FFE2",
+    "name": "Andy Bernard",
+    "phone": "+1-555-018-3341",
+    "email": null,
+    "requested_amount": 20000.0,
+    "monthly_income": 5200.0,
+    "credit_score": 690,
+    "qualification": "qualified",
+    "reason": "Eligible for Tier 3 (Standard) with fixed APR of 11.75% and $0 prepayment penalty.",
+    "next_action": "advisor_callback",
+    "created_at": "2026-09-21T19:11:25.155746",
+    "metadata": {
+      "tier": "Tier 3 (Standard)",
+      "apr": "11.75%",
+      "prepayment_fee": "$0"
+    }
+  },
+  "citations_used": [],
+  "recording_file": "recordings/scenario-03.wav",
+  "dialogue_history": [
+    {
+      "speaker": "Agent",
+      "utterance": "Hello! This is Alex calling from Apex Credit & Vehicle Lending. I'm following up on your inquiry regarding our pre-approved auto and flexi-credit options. Am I speaking with Andy Bernard?"
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Speaking! Andy here."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Great! Before we proceed to review your financing options, I want to inform you that this call is recorded for quality, compliance, and training purposes. Is it okay to continue?",
+      "state": "CONSENT",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Sure, record away."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Understood. Approximately how much funding or borrowing amount are you looking to finance?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "I need around $20,000."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Thank you. Lastly, what is your approximate credit score or credit rating range?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My take home is $1,800 a month."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "I noticed a slight discrepancy: earlier you mentioned an income of $20,000, but just now you stated $1,800. Which monthly income should we use for your application?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Actually sorry, my take home is $5,200 including commissions."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Thank you for clarifying that figure! Let's continue. Thank you. Lastly, what is your approximate credit score or credit rating range?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My credit score is 690."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Fantastic news! Based on our underwriting guidelines, you are preliminarily qualified for Tier 3 (Standard) with a fixed APR of 11.75% with a $0 prepayment penalty. I have generated your pre-approval reference LEAD-A2D9FFE2.",
+      "state": "RESULT",
+      "citations": []
+    }
+  ]
+}

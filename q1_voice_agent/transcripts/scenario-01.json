@@ -1,0 +1,86 @@
+{
+  "scenario_id": "SCENARIO-01",
+  "scenario_name": "Cooperative Customer (Pre-approval)",
+  "customer_name": "Jim Halpert",
+  "phone": "+1-555-019-2831",
+  "final_state": "RESULT",
+  "qualification_status": "qualified",
+  "conflicts_detected": [],
+  "escalation_requested": false,
+  "lead": {
+    "lead_id": "LEAD-9DA7148C",
+    "name": "Jim Halpert",
+    "phone": "+1-555-019-2831",
+    "email": null,
+    "requested_amount": 30000.0,
+    "monthly_income": 6000.0,
+    "credit_score": 780,
+    "qualification": "qualified",
+    "reason": "Eligible for Tier 1 (Excellent) with fixed APR of 6.49% and $0 prepayment penalty.",
+    "next_action": "advisor_callback",
+    "created_at": "2026-09-21T19:11:25.153630",
+    "metadata": {
+      "tier": "Tier 1 (Excellent)",
+      "apr": "6.49%",
+      "prepayment_fee": "$0"
+    }
+  },
+  "citations_used": [],
+  "recording_file": "recordings/scenario-01.wav",
+  "dialogue_history": [
+    {
+      "speaker": "Agent",
+      "utterance": "Hello! This is Alex calling from Apex Credit & Vehicle Lending. I'm following up on your inquiry regarding our pre-approved auto and flexi-credit options. Am I speaking with Jim Halpert?"
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, this is Jim speaking."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Great! Before we proceed to review your financing options, I want to inform you that this call is recorded for quality, compliance, and training purposes. Is it okay to continue?",
+      "state": "CONSENT",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, recording is fine, go ahead."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Understood. Approximately how much funding or borrowing amount are you looking to finance?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "I am looking for an auto loan of about $30,000."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Got it. And to check your debt-to-income eligibility, what is your approximate monthly net take-home income?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My monthly net income is approximately $6,000."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Thank you. Lastly, what is your approximate credit score or credit rating range?",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "My credit score is 780."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Fantastic news! Based on our underwriting guidelines, you are preliminarily qualified for Tier 1 (Excellent) with a fixed APR of 6.49% with a $0 prepayment penalty. I have generated your pre-approval reference LEAD-9DA7148C.",
+      "state": "RESULT",
+      "citations": []
+    }
+  ]
+}

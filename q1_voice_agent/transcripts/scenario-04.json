@@ -1,0 +1,108 @@
+{
+  "scenario_id": "SCENARIO-04",
+  "scenario_name": "Out-of-Scope / Unsupported Question",
+  "customer_name": "Ryan Howard",
+  "phone": "+1-555-017-7711",
+  "final_state": "RESULT",
+  "qualification_status": "qualified",
+  "conflicts_detected": [],
+  "escalation_requested": false,
+  "lead": {
+    "lead_id": "LEAD-33BECED3",
+    "name": "Ryan Howard",
+    "phone": "+1-555-017-7711",
+    "email": null,
+    "requested_amount": 15000.0,
+    "monthly_income": 3800.0,
+    "credit_score": 710,
+    "qualification": "qualified",
+    "reason": "Eligible for Tier 2 (Good) with fixed APR of 8.99% and $0 prepayment penalty.",
+    "next_action": "advisor_callback",
+    "created_at": "2026-09-21T19:11:25.156418",
+    "metadata": {
+      "tier": "Tier 2 (Good)",
+      "apr": "8.99%",
+      "prepayment_fee": "$0"
+    }
+  },
+  "citations_used": [
+    "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+  ],
+  "recording_file": "recordings/scenario-04.wav",
+  "dialogue_history": [
+    {
+      "speaker": "Agent",
+      "utterance": "Hello! This is Alex calling from Apex Credit & Vehicle Lending. I'm following up on your inquiry regarding our pre-approved auto and flexi-credit options. Am I speaking with Ryan Howard?"
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Yes, Ryan."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Great! Before we proceed to review your financing options, I want to inform you that this call is recorded for quality, compliance, and training purposes. Is it okay to continue?",
+      "state": "CONSENT",
+      "citations": [
+        "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Fine."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Understood. Approximately how much funding or borrowing amount are you looking to finance?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Do you offer crypto-backed collateral loans with Bitcoin staking yields?"
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "I don't have reliable information about that in my available business policies. I would be happy to connect you with a senior lending specialist who can answer that in detail.",
+      "state": "COLLECT_DETAILS",
+      "citations": []
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Okay, what about regular auto loans? I need $15,000."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Minimum Facility Size: $5,000. [Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1] Got it. And to check your debt-to-income eligibility, what is your approximate monthly net take-home income?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Income is $3,800."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Thank you. Lastly, what is your approximate credit score or credit rating range?",
+      "state": "COLLECT_DETAILS",
+      "citations": [
+        "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+      ]
+    },
+    {
+      "speaker": "Customer",
+      "utterance": "Credit score 710."
+    },
+    {
+      "speaker": "Agent",
+      "utterance": "Fantastic news! Based on our underwriting guidelines, you are preliminarily qualified for Tier 2 (Good) with a fixed APR of 8.99% with a $0 prepayment penalty. I have generated your pre-approval reference LEAD-33BECED3.",
+      "state": "RESULT",
+      "citations": [
+        "[Source: credit_lending_policy_v2.txt | Section: 2.1 Loan Amounts | Version: 2.1]"
+      ]
+    }
+  ]
+}
