@@ -15,6 +15,7 @@ class LocalVectorEmbeddingProvider(BaseEmbeddingProvider):
         self.vectorizer = TfidfVectorizer(
             ngram_range=(1, 2),
             sublinear_tf=True,
+            stop_words="english",
             max_features=max_features,
             token_pattern=r"(?u)\b\w+\b"
         )

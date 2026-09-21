@@ -9,7 +9,7 @@ class SemanticSectionChunker:
     """Chunks documents along semantic section and tabular boundaries rather than fixed token splits."""
 
     SECTION_HEADER_REGEX = re.compile(
-        r"^(?:(?:[0-9]{1,2}\.[0-9]{0,2}\s+[A-Za-z0-9\s,&/\(\)\-]+:?)|(?:#{1,4}\s+[^\n]+)|(?:\[Record\s+\d+\])|(?:SECTION\s+[0-9A-Za-z\s]+:?))$",
+        r"^(?:(?:[0-9]{1,2}\.[0-9]{0,2}\s+[A-Za-z0-9\s,&/\(\)\-]+:?)|(?:#{1,4}\s+[^\n]+)|(?:\[Record\s+\d+\].*)|(?:SECTION\s+[0-9A-Za-z\s]+:?))$",
         re.M
     )
 
@@ -66,6 +66,17 @@ class SemanticSectionChunker:
 
     def _split_into_sections(self, content: str) -> List[tuple]:
         """Splits text by regex section headers into (header, body) tuples."""
+        # Special case: tabular record lines from CSV
+        if "[Record " in content:
+            sections = []
+            for line in content.splitlines():
+                clean_l = line.strip()
+                if clean_l.startswith("[Record "):
+                    header_part = clean_l.split("]")[0] + "]"
+                    sections.append((header_part, clean_l))
+            if sections:
+                return sections
+
         matches = list(self.SECTION_HEADER_REGEX.finditer(content))
         if not matches:
             return [("General Information", content)]

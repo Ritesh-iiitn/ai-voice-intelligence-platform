@@ -63,8 +63,12 @@ class VectorIndex:
 
         results: List[Tuple[ChunkRecord, float]] = []
         for idx in ranked_indices:
-            chunk = self.chunks[idx]
             score = float(scores[idx])
+            if score < 0.05:
+                # Discard candidates with negligible similarity
+                break
+
+            chunk = self.chunks[idx]
 
             # Apply metadata filters if provided
             if filters:
