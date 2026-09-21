@@ -1,4 +1,4 @@
-.PHONY: setup test run ingest clean
+.PHONY: setup test eval eval-q2 eval-q3 eval-q4 serve clean
 
 setup:
 	python3 -m venv venv
@@ -8,17 +8,19 @@ setup:
 test:
 	./venv/bin/pytest -v
 
-ingest:
-	./venv/bin/python scripts/ingest.py
+eval: eval-q2 eval-q3 eval-q4
 
-eval-retrieval:
+eval-q2:
 	./venv/bin/python scripts/evaluate_retrieval.py
 
-run-api:
+eval-q3:
+	./venv/bin/python scripts/evaluate_multilingual.py
+
+eval-q4:
+	./venv/bin/python scripts/evaluate_realtime.py
+
+serve:
 	./venv/bin/uvicorn apps.api.main:app --host 0.0.0.0 --port 8000 --reload
 
-run-demo:
-	./venv/bin/python scripts/run_realtime_demo.py
-
 clean:
-	rm -rf __pycache__ .pytest_cache data/cache data/indices
+	rm -rf __pycache__ .pytest_cache data/cache data/indices .coverage htmlcov

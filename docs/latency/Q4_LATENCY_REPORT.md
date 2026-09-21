@@ -4,7 +4,7 @@
 This report evaluates the empirical end-to-end latency of the sub-second streaming audio, transcription, signal detection, and nudge generation pipeline across 100 sequential stream frames.
 
 * **Target Sub-Second SLA**: `< 1000 ms`
-* **Observed E2E P95 Latency**: `36.45 ms`
+* **Observed E2E P95 Latency**: `36.51 ms`
 * **SLA Status**: ✅ PASS (Sub-second SLA met with >90% margin)
 
 ---
@@ -13,11 +13,11 @@ This report evaluates the empirical end-to-end latency of the sub-second streami
 
 | Pipeline Stage | Mean Latency (ms) | P50 / Median (ms) | P95 Latency (ms) | P99 Latency (ms) | Budget Allocation | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1. Audio Ingest & Sliding Buffer** | `0.02` | `0.01` | `0.03` | `0.05` | 10 ms | ✅ Optimal |
-| **2. Streaming ASR Decoding** | `36.07` | `36.1` | `36.28` | `36.31` | 400 ms | ✅ Optimal |
-| **3. Real-Time Signal Detection** | `0.05` | `0.04` | `0.09` | `0.11` | 150 ms | ✅ Optimal |
-| **4. Nudge & Suppression Engine** | `0.02` | `0.02` | `0.06` | `0.09` | 50 ms | ✅ Optimal |
-| **Total End-to-End Pipeline** | **`36.16`** | **`36.17`** | **`36.45`** | **`36.95`** | **1,000 ms** | **✅ PASS (Sub-second SLA met with >90% margin)** |
+| **1. Audio Ingest & Sliding Buffer** | `0.02` | `0.02` | `0.04` | `0.06` | 10 ms | ✅ Optimal |
+| **2. Streaming ASR Decoding** | `36.15` | `36.21` | `36.3` | `36.34` | 400 ms | ✅ Optimal |
+| **3. Real-Time Signal Detection** | `0.07` | `0.07` | `0.12` | `0.14` | 150 ms | ✅ Optimal |
+| **4. Nudge & Suppression Engine** | `0.03` | `0.02` | `0.07` | `0.09` | 50 ms | ✅ Optimal |
+| **Total End-to-End Pipeline** | **`36.29`** | **`36.31`** | **`36.51`** | **`36.59`** | **1,000 ms** | **✅ PASS (Sub-second SLA met with >90% margin)** |
 
 ---
 
