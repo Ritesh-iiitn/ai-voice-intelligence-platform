@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Voice AI Telemetry & Nudge Platform</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a13;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-border: rgba(255, 255, 255, 0.08);
+      --bg-panel: #0d1322;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-blue: #3b82f6;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-red: #ef4444;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 15% 15%, #131b2e 0%, var(--bg-dark) 60%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(13, 19, 34, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--bg-card-border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-emerald);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-emerald);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Scenario Simulation Toolbar */
+    .toolbar-bar {
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid var(--bg-card-border);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .toolbar-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    .scenario-btn {
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-smooth);
+    }
+
+    .scenario-btn:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: var(--accent-indigo);
+      transform: translateY(-1px);
+    }
+
+    .scenario-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--accent-red);
+    }
+
+    /* Main Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1.2fr;
+      gap: 20px;
+      padding: 24px 28px;
+      flex: 1;
+      max-width: 1720px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Glass Panels */
+    .panel {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      height: calc(100vh - 210px);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--bg-card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-count {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-body {
+      padding: 18px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Column 1: Live Transcript */
+    .utterance {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .utterance.agent {
+      background: rgba(99, 102, 241, 0.12);
+      border-left: 3px solid var(--accent-indigo);
+      align-self: flex-start;
+      margin-right: 20px;
+    }
+
+    .utterance.customer {
+      background: rgba(16, 185, 129, 0.12);
+      border-left: 3px solid var(--accent-emerald);
+      align-self: flex-end;
+      margin-left: 20px;
+    }
+
+    .utterance-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .utterance.agent .utterance-header { color: var(--accent-indigo); }
+    .utterance.customer .utterance-header { color: var(--accent-emerald); }
+
+    .transcript-composer {
+      padding: 14px 18px;
+      border-top: 1px solid var(--bg-card-border);
+      display: flex;
+      gap: 8px;
+      background: rgba(10, 15, 28, 0.7);
+    }
+
+    .composer-input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      color: white;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .composer-input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .speaker-select {
+      padding: 0 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .btn-send {
+      padding: 10px 16px;
+      background: var(--accent-indigo);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-send:hover {
+      background: #4f46e5;
+    }
+
+    /* Column 2: Signals */
+    .signal-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .signal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .signal-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .signal-cross-sell { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.4); }
+    .signal-compliance { background: rgba(239, 68, 68, 0.15); color: var(--accent-rose); border: 1px solid rgba(239, 68, 68, 0.4); }
+    .signal-frustration { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .signal-payment { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+
+    .signal-quote {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      margin-top: 6px;
+      border-left: 2px solid var(--bg-card-border);
+    }
+
+    /* Column 3: Nudge Cards */
+    .nudge-card {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: popIn 0.35s ease;
+      position: relative;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .nudge-card.priority-CRITICAL {
+      border: 1.5px solid var(--accent-red);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+    }
+
+    .nudge-card.priority-HIGH {
+      border: 1.5px solid var(--accent-amber);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+    }
+
+    .nudge-card.priority-MEDIUM {
+      border: 1px solid var(--accent-cyan);
+    }
+
+    .nudge-card.suppressed {
+      opacity: 0.6;
+      border: 1px dashed var(--text-muted);
+      box-shadow: none;
+    }
+
+    .nudge-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .priority-pill {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .pill-CRITICAL { background: var(--accent-red); color: white; }
+    .pill-HIGH { background: var(--accent-amber); color: black; }
+    .pill-MEDIUM { background: var(--accent-cyan); color: black; }
+
+    .nudge-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nudge-message {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .script-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #e2e8f0;
+      position: relative;
+    }
+
+    .btn-copy {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-copy:hover {
+      background: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+    }
+
+    .suppression-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+
+    /* Bottom Telemetry Bar */
+    footer {
+      background: rgba(13, 19, 34, 0.9);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--bg-card-border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .metrics-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .metric-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .metric-value {
+      font-weight: 700;
+      color: var(--accent-cyan);
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .talk-ratio-bar {
+      width: 140px;
+      height: 8px;
+      background: rgba(99, 102, 241, 0.4);
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .ratio-customer {
+      height: 100%;
+      background: var(--accent-emerald);
+      width: 50%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand-title">
+      <div class="brand-logo">AI</div>
+      <div class="brand-text">
+        <h1>Voice AI Live Copilot & Real-Time Nudge Platform</h1>
+        <span>Sub-Second Telemetry • Compliance Guardrails • Auto & Loan Protection</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div id="connection-status" class="status-badge">
+        <div class="pulse-dot"></div>
+        <span>LIVE WEBSOCKET CONNECTED</span>
+      </div>
+      <div style="font-size: 12px; color: var(--text-muted);">
+        Call ID: <strong id="current-call-id" style="color: white;">call-live-101</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scenario Simulation Toolbar -->
+  <div class="toolbar-bar">
+    <span class="toolbar-label">Simulate Live Scenarios:</span>
+    <button id="btn-scen-cross" class="scenario-btn" onclick="triggerScenario('cross_sell')">🚗 Missed Cross-Sell</button>
+    <button id="btn-scen-comp" class="scenario-btn" onclick="triggerScenario('compliance_guarantee')">⚠️ Compliance Gap (Guarantee)</button>
+    <button id="btn-scen-apr" class="scenario-btn" onclick="triggerScenario('compliance_apr')">📊 Compliance Gap (Missing APR)</button>
+    <button id="btn-scen-frust" class="scenario-btn" onclick="triggerScenario('frustration')">🔥 Rising Frustration</button>
+    <button id="btn-scen-hardship" class="scenario-btn" onclick="triggerScenario('hardship')">🩺 Payment Hardship</button>
+    <button id="btn-scen-cooldown" class="scenario-btn" onclick="triggerScenario('cooldown_test')">⏱️ Test Cooldown Suppression</button>
+    <button id="btn-scen-clear" class="scenario-btn danger" onclick="clearLiveCall()">🧹 Clear Call</button>
+  </div>
+
+  <!-- 3-Column Real-Time Grid -->
+  <main class="dashboard-grid">
+    <!-- Col 1: Live Audio/Text Transcript -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🎙️ Live Call Transcript</span>
+        </div>
+        <span id="transcript-count" class="panel-count">0 turns</span>
+      </div>
+      <div id="transcript-feed" class="panel-body">
+        <div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">
+          Select a scenario above or type below to stream speech in real-time...
+        </div>
+      </div>
+      <div class="transcript-composer">
+        <select id="speaker-selector" class="speaker-select">
+          <option value="CUSTOMER">Customer</option>
+          <option value="AGENT">Agent</option>
+        </select>
+        <input id="input-utterance" class="composer-input" type="text" placeholder="Type customer or agent utterance..." onkeydown="if(event.key==='Enter') sendCustomUtterance()">
+        <button id="btn-send-utterance" class="btn-send" onclick="sendCustomUtterance()">Stream</button>
+      </div>
+    </section>
+
+    <!-- Col 2: Signals Detected -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>⚡ Real-Time Signals</span>
+        </div>
+        <span id="signals-count" class="panel-count">0 detected</span>
+      </div>
+      <div id="signals-feed" class="panel-body">
+        <div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">
+          Awaiting live speech signals...
+        </div>
+      </div>
+    </section>
+
+    <!-- Col 3: Actionable Nudges & Scripts -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🎯 Live Agent Nudges</span>
+        </div>
+        <span id="nudges-count" class="panel-count">0 nudges</span>
+      </div>
+      <div id="nudges-feed" class="panel-body">
+        <div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">
+          Actionable nudges with 20s cooldowns appear here...
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Telemetry Bar -->
+  <footer>
+    <div class="metrics-group">
+      <div class="metric-item">
+        <span class="metric-label">ASR Latency:</span>
+        <span id="val-asr-lat" class="metric-value">32ms</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">Signal Detection:</span>
+        <span id="val-sig-lat" class="metric-value">1.4ms</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">Nudge Generation:</span>
+        <span id="val-nudge-lat" class="metric-value">0.6ms</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">Total E2E Pipeline:</span>
+        <span id="val-total-lat" class="metric-value" style="color: var(--accent-emerald);">34.0ms</span>
+      </div>
+    </div>
+
+    <div class="metrics-group">
+      <div class="metric-item">
+        <span class="metric-label">Talk Ratio (Cust / Agent):</span>
+        <div class="talk-ratio-bar">
+          <div id="talk-ratio-fill" class="ratio-customer"></div>
+        </div>
+        <span id="val-talk-ratio" class="metric-value" style="margin-left: 6px;">50%</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CALL_ID = "call-live-101";
+    let ws = null;
+    let turnCount = 0;
+    let signalCount = 0;
+    let nudgeCount = 0;
+
+    function initWebSocket() {
+      const loc = window.location;
+      const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
+      const wsUrl = `${wsProtocol}//${loc.host}/ws/calls/${CALL_ID}`;
+
+      ws = new WebSocket(wsUrl);
+
+      ws.onopen = () => {
+        console.log("Connected to Realtime WebSocket");
+        document.getElementById("connection-status").innerHTML = `
+          <div class="pulse-dot"></div>
+          <span>LIVE WEBSOCKET CONNECTED</span>
+        `;
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          handleWebSocketMessage(msg);
+        } catch (e) {
+          console.error("Error parsing ws message", e);
+        }
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket disconnected, reconnecting in 2s...");
+        document.getElementById("connection-status").innerHTML = `
+          <div class="pulse-dot" style="background: red;"></div>
+          <span>RECONNECTING...</span>
+        `;
+        setTimeout(initWebSocket, 2000);
+      };
+    }
+
+    function handleWebSocketMessage(msg) {
+      if (msg.event_type === "transcript") {
+        renderTranscript(msg.payload);
+      } else if (msg.event_type === "signal") {
+        renderSignal(msg.payload);
+      } else if (msg.event_type === "nudge") {
+        renderNudge(msg.payload);
+      } else if (msg.event_type === "metrics") {
+        renderMetrics(msg.payload);
+      }
+    }
+
+    function renderTranscript(payload) {
+      const feed = document.getElementById("transcript-feed");
+      if (turnCount === 0) feed.innerHTML = "";
+      turnCount++;
+      document.getElementById("transcript-count").textContent = `${turnCount} turns`;
+
+      const div = document.createElement("div");
+      div.className = `utterance ${payload.speaker.toLowerCase()}`;
+      div.innerHTML = `
+        <div class="utterance-header">
+          <span>${payload.speaker}</span>
+          <span style="opacity: 0.6; font-size: 10px;">conf: ${(payload.confidence || 0.95).toFixed(2)}</span>
+        </div>
+        <div>${escapeHtml(payload.text)}</div>
+      `;
+      feed.appendChild(div);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function renderSignal(sig) {
+      const feed = document.getElementById("signals-feed");
+      if (signalCount === 0) feed.innerHTML = "";
+      signalCount++;
+      document.getElementById("signals-count").textContent = `${signalCount} detected`;
+
+      const div = document.createElement("div");
+      div.className = "signal-card";
+      let tagClass = "signal-cross-sell";
+      if (sig.signal_type.includes("compliance")) tagClass = "signal-compliance";
+      if (sig.signal_type.includes("frustration")) tagClass = "signal-frustration";
+      if (sig.signal_type.includes("payment")) tagClass = "signal-payment";
+
+      div.innerHTML = `
+        <div class="signal-header">
+          <span class="signal-tag ${tagClass}">${sig.signal_type}</span>
+          <span style="font-size: 11px; color: var(--accent-cyan); font-weight: 600;">conf: ${(sig.confidence).toFixed(2)}</span>
+        </div>
+        <div class="signal-quote">"${escapeHtml(sig.trigger_text)}"</div>
+      `;
+      feed.prepend(div);
+    }
+
+    function renderNudge(ndg) {
+      const feed = document.getElementById("nudges-feed");
+      if (nudgeCount === 0) feed.innerHTML = "";
+      nudgeCount++;
+      document.getElementById("nudges-count").textContent = `${nudgeCount} nudges`;
+
+      const div = document.createElement("div");
+      div.className = `nudge-card priority-${ndg.priority} ${ndg.suppressed ? 'suppressed' : ''}`;
+
+      const suppressedHtml = ndg.suppressed
+        ? `<div class="suppression-tag">⏸️ SUPPRESSED: ${escapeHtml(ndg.suppression_reason || '')}</div>`
+        : '';
+
+      div.innerHTML = `
+        <div class="nudge-top">
+          <span class="priority-pill pill-${ndg.priority}">${ndg.priority}</span>
+          <span style="font-size: 11px; opacity: 0.6;">${new Date(ndg.timestamp_ms).toLocaleTimeString()}</span>
+        </div>
+        <div class="nudge-title">${escapeHtml(ndg.title)}</div>
+        <div class="nudge-message">${escapeHtml(ndg.message)}</div>
+        ${suppressedHtml}
+        <div class="script-box">
+          <strong style="color: var(--accent-cyan); display: block; margin-bottom: 4px;">Recommended Script:</strong>
+          "${escapeHtml(ndg.recommended_script)}"
+        </div>
+        <button class="btn-copy" onclick="copyText('${escapeJsString(ndg.recommended_script)}')">📋 Copy Script</button>
+      `;
+      feed.prepend(div);
+    }
+
+    function renderMetrics(metrics) {
+      if (metrics.sig_latency_ms !== undefined) {
+        document.getElementById("val-sig-lat").textContent = `${metrics.sig_latency_ms}ms`;
+      }
+      if (metrics.total_latency_ms !== undefined) {
+        document.getElementById("val-total-lat").textContent = `${metrics.total_latency_ms}ms`;
+      }
+      if (metrics.customer_talk_ratio !== undefined) {
+        const pct = Math.round(metrics.customer_talk_ratio * 100);
+        document.getElementById("talk-ratio-fill").style.width = `${pct}%`;
+        document.getElementById("val-talk-ratio").textContent = `${pct}%`;
+      }
+    }
+
+    async function streamUtterance(speaker, text) {
+      try {
+        const res = await fetch("/api/calls/simulate-turn", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            call_id: CALL_ID,
+            speaker: speaker,
+            text: text
+          })
+        });
+        const data = await res.json();
+      } catch (err) {
+        console.error("Failed to stream turn:", err);
+      }
+    }
+
+    function sendCustomUtterance() {
+      const input = document.getElementById("input-utterance");
+      const text = input.value.trim();
+      if (!text) return;
+      const speaker = document.getElementById("speaker-selector").value;
+      input.value = "";
+      streamUtterance(speaker, text);
+    }
+
+    async function triggerScenario(type) {
+      if (type === "cross_sell") {
+        await streamUtterance("AGENT", "We can finalize your auto loan for the 2022 Honda Civic.");
+        setTimeout(() => streamUtterance("CUSTOMER", "Great! By the way, I also have a second car for my wife that needs coverage."), 500);
+      } else if (type === "compliance_guarantee") {
+        await streamUtterance("AGENT", "You have guaranteed approval with no credit check required at all.");
+      } else if (type === "compliance_apr") {
+        await streamUtterance("AGENT", "I can offer you an interest rate of 6.2% with a monthly payment of $420.");
+      } else if (type === "frustration") {
+        await streamUtterance("CUSTOMER", "I asked you three times already, this is ridiculous, speak to a human right now!");
+      } else if (type === "hardship") {
+        await streamUtterance("CUSTOMER", "I lost my job last week and had emergency hospital bills, I cannot pay this month.");
+      } else if (type === "cooldown_test") {
+        await streamUtterance("CUSTOMER", "Can you also cover my second vehicle?");
+        setTimeout(() => streamUtterance("CUSTOMER", "Yes, what about my second car?"), 400);
+      }
+    }
+
+    function clearLiveCall() {
+      turnCount = 0;
+      signalCount = 0;
+      nudgeCount = 0;
+      document.getElementById("transcript-feed").innerHTML = '<div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">Select a scenario above to test...</div>';
+      document.getElementById("signals-feed").innerHTML = '<div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">Awaiting live speech signals...</div>';
+      document.getElementById("nudges-feed").innerHTML = '<div style="color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 40px;">Actionable nudges with cooldowns appear here...</div>';
+      document.getElementById("transcript-count").textContent = "0 turns";
+      document.getElementById("signals-count").textContent = "0 detected";
+      document.getElementById("nudges-count").textContent = "0 nudges";
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt);
+      alert("Script copied to clipboard!");
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function escapeJsString(str) {
+      if (!str) return "";
+      return str.replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, ' ');
+    }
+
+    // Initialize on window load
+    window.onload = initWebSocket;
+  </script>
+</body>
+</html>
