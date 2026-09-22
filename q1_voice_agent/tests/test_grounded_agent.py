@@ -84,3 +84,10 @@ def test_complete_cooperative_qualification_call(grounded_engine):
     assert "6.49%" in out["response"]
     assert "lead" in out
     assert out["lead"]["name"] == "Jim Halpert"
+
+    # Follow-up questions in RESULT state should answer factually without repeating wrapup script
+    follow_up = grounded_engine.process_turn(state, "can you tell me the what is the minimum business age required to qualify")
+    assert "23 and 60" in follow_up["response"]
+    assert "preliminarily qualified" not in follow_up["response"]
+    assert "do not meet our minimum underwriting threshold" not in follow_up["response"]
+

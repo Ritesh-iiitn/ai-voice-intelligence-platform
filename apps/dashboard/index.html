@@ -925,7 +925,7 @@
       }
     }
 
-    function clearLiveCall() {
+    async function clearLiveCall() {
       turnCount = 0;
       signalCount = 0;
       nudgeCount = 0;
@@ -935,6 +935,16 @@
       document.getElementById("transcript-count").textContent = "0 turns";
       document.getElementById("signals-count").textContent = "0 detected";
       document.getElementById("nudges-count").textContent = "0 nudges";
+
+      try {
+        await fetch("/api/calls/reset", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ call_id: CALL_ID })
+        });
+      } catch (e) {
+        console.warn("Call reset failed:", e);
+      }
     }
 
     function copyText(txt) {
@@ -1082,6 +1092,14 @@
       const btn = document.getElementById("btn-voice-call");
       btn.classList.add("active");
       document.getElementById("voice-call-label").textContent = "🛑 End Voice Call";
+
+      try {
+        await fetch("/api/calls/reset", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ call_id: CALL_ID })
+        });
+      } catch (e) {}
 
       if (!recognition) {
         recognition = initSpeechRecognition();

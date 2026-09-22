@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-80%20Passed%20(100%25)-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-81%20Passed%20(100%25)-brightgreen.svg)](tests/)
 [![RealTime Latency](https://img.shields.io/badge/P95%20Latency-36.54ms%20(SLA%20%3C%201000ms)-success.svg)](docs/latency/Q4_LATENCY_REPORT.md)
 [![Retrieval MRR](https://img.shields.io/badge/RAG%20MRR-0.917-blueviolet.svg)](docs/evaluation/q2_retrieval_results.md)
 [![Signal Precision](https://img.shields.io/badge/Signal%20Precision-100%25%20(0%25%20FP)-success.svg)](docs/evaluation/q4_false_positive_results.md)

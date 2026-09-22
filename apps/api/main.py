@@ -117,6 +117,10 @@ class MultilingualRouteRequest(BaseModel):
     detected_country_code: Optional[str] = None
 
 
+class ResetCallRequest(BaseModel):
+    call_id: str = "call-live-101"
+
+
 # ---------------- API ENDPOINTS ---------------- #
 
 @app.get("/health")
@@ -127,6 +131,17 @@ async def health_check():
         "modules": ["q1_voice_agent", "q2_knowledge_base", "q3_multilingual", "q4_realtime"],
         "timestamp_ms": int(time.time() * 1000),
     }
+
+
+@app.post("/api/calls/reset")
+async def reset_call(req: ResetCallRequest):
+    """Resets conversational state and nudges for a given call session."""
+    retriever = get_kb_retriever()
+    _voice_agents[req.call_id] = VoiceAgentEngine(retriever=retriever)
+    _call_states[req.call_id] = ConversationState(call_id=req.call_id)
+    if req.call_id in nudge_engine._states:
+        del nudge_engine._states[req.call_id]
+    return {"status": "reset", "call_id": req.call_id}
 
 
 @app.post("/api/kb/search")

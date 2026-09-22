@@ -215,9 +215,41 @@ class VoiceAgentEngine:
             state.current_state = CallState.QUALIFICATION
             return self._execute_qualification(state, prefix_msg)
 
-        # Current State: QUALIFICATION / RESULT
-        elif state.current_state in [CallState.QUALIFICATION, CallState.RESULT]:
+        # Current State: QUALIFICATION
+        elif state.current_state == CallState.QUALIFICATION:
             return self._execute_qualification(state, prefix_msg)
+
+        # Current State: RESULT / COMPLETED
+        elif state.current_state in [CallState.RESULT, CallState.COMPLETED]:
+            # If the customer asks a grounded policy or information question:
+            if prefix_msg:
+                resp = prefix_msg.strip()
+                state.add_turn("agent", resp)
+                return {"response": resp, "state": state.current_state, "citations": state.cited_sources}
+
+            # Check if customer wants to update figures
+            conflict_msg = (
+                self.conflict_validator.check_and_update_amount(state, user_clean) or
+                self.conflict_validator.check_and_update_income(state, user_clean) or
+                self.conflict_validator.check_and_update_credit_score(state, user_clean)
+            )
+            if conflict_msg:
+                resp = prefix_msg + conflict_msg
+                state.add_turn("agent", resp)
+                return {"response": resp, "state": state.current_state, "has_conflict": True, "citations": state.cited_sources}
+
+            # Closing acknowledgment
+            lowered = user_clean.lower()
+            if any(w in lowered for w in ["thank", "thanks", "bye", "goodbye", "ok", "okay", "done", "all good"]):
+                state.current_state = CallState.COMPLETED
+                resp = "You're very welcome! Thank you for speaking with Apex Lending. Have a wonderful day!"
+                state.add_turn("agent", resp)
+                return {"response": resp, "state": state.current_state, "citations": state.cited_sources}
+
+            # Default conversational follow-up
+            resp = "Is there anything else I can assist you with regarding your loan application or terms?"
+            state.add_turn("agent", resp)
+            return {"response": resp, "state": state.current_state, "citations": state.cited_sources}
 
         # Fallback completion
         resp = prefix_msg + "Thank you for speaking with Apex Lending. Have a wonderful day!"
@@ -252,8 +284,11 @@ class VoiceAgentEngine:
             )
         elif status == "exception_review":
             script = VOICE_SCRIPTS["wrapup_exception"].format(lead_id=lead.lead_id)
-        else:
+        elif status == "disqualified":
             script = VOICE_SCRIPTS["wrapup_disqualified"]
+        else:
+            script = "We still need a few details to finalize your application. Could you please share your monthly income and credit score?"
+            state.current_state = CallState.COLLECT_DETAILS
 
         final_response = (prefix_msg + " " + script).strip()
         state.add_turn("agent", final_response)

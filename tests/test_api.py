@@ -80,3 +80,11 @@ def test_websocket_stream_connection(client):
         websocket.send_json({"event_type": "ping"})
         data = websocket.receive_json()
         assert data["event_type"] == "pong"
+
+
+def test_reset_call_api(client):
+    res = client.post("/api/calls/reset", json={"call_id": "test-reset-call"})
+    assert res.status_code == 200
+    assert res.json()["status"] == "reset"
+    assert res.json()["call_id"] == "test-reset-call"
+
